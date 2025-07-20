@@ -1,36 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐛 BugStack - Bug Tracking System
 
-## Getting Started
+BugStack is a modern web-based bug tracking system designed for **developers** and **testers** to manage software issues effectively. It supports role-based functionality, real-time bug reporting, project management, and streamlined collaboration between developers and testers.
 
-First, run the development server:
+---
 
-```bash
+## 🚀 Features
+
+### 👩‍💻 Developer Dashboard
+- Create and manage projects
+- View bugs reported under assigned projects
+- Update project status
+- Delete projects if needed
+
+### 🧪 Tester Dashboard
+- Report bugs with name, description, and related project
+- View all bugs reported
+- Update bug status (open/closed)
+
+### 🌟 Shared Features
+- Authenticated routing via localStorage
+- Project-filtered bug listings
+- Bug filtering by status
+- Visual loading skeletons
+- Fully responsive UI with consistent theme
+
+---
+
+## 🛠️ Tech Stack
+
+| Tech         | Description                      |
+|--------------|----------------------------------|
+| **Next.js**  | React framework with routing     |
+| **MongoDB**  | NoSQL database for persistence   |
+| **Mongoose** | ODM for MongoDB                  |
+| **Tailwind** | Utility-first CSS framework      |
+| **Lucide**   | Icons for a clean UI             |
+
+---
+
+## 📁 Project Structure
+
+bugstack/
+├── app/
+│ ├── login/
+│ ├── tester/
+│ ├── developer/
+│ ├── api/
+│ │ ├── users/
+│ │ ├── projects/
+│ │ └── bugs/
+├── components/
+│ └── LoadingSkeleton.tsx
+├── models/
+│ ├── User.ts
+│ ├── Project.ts
+│ └── Bug.ts
+├── lib/
+│ └── mongodb.ts
+
+
+---
+
+## 📦 Setup Instructions
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/your-username/bugstack.git
+   cd bugstack
+Install dependencies
+
+
+npm install
+Configure Environment
+Create a .env.local file with your MongoDB URI:
+
+
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/bugstack
+Run the development server
+
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit the app
+Open http://localhost:3000 in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+🧪 Sample Test Users
+Role	Email	Password
+Developer	dev1@example.com	123456
+Tester	tester1@example.com	123456
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+📸 Screenshots
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Landing Page
+![Landing Page](./public/screenshots/landingpage.png)
 
-## Learn More
+### 🧪 Tester Dashboard
+![Tester Dashboard](./public/screenshots/tester.png)
 
-To learn more about Next.js, take a look at the following resources:
+### 👨‍💻 Developer Dashboard
+![Create Project](./public/screenshots/developer.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📊 Project Details Page
+![Project Details for Developer](./public/screenshots/developer2.png)
+![Project Details for Tester](./public/screenshots/tester2.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+🙌 Contributing
+Contributions are welcome! Please open an issue or submit a pull request if you find bugs or have feature suggestions.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+📄 License
+This project is licensed under the MIT License.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+✨ Acknowledgements
+Thanks to the open-source community and icon libraries like Lucide Icons.
+
+
+---
+
+Let me know if you'd like a version tailored for deployment instructions (like Vercel) or want to include sample API docs.

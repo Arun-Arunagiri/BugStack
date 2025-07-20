@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Seymour_One, Inter } from 'next/font/google';
 import { UserRound, LogOut, Plus } from "lucide-react";
+import LoadingSkeleton from "@/components/skeleton";
 
 const seymourOne = Seymour_One({
     weight: '400',
@@ -68,7 +69,7 @@ function DeveloperDashboard() {
         router.push("/login");
     };
 
-    if (loading) return <div className="p-6 text-[#53618a]">Loading...</div>;
+    if (loading) return <LoadingSkeleton />;
 
     return (
         <div className="min-h-screen bg-[#f8f9fa] text-[#53618a] lg:px-6 px-2 py-2">
@@ -126,7 +127,7 @@ function DeveloperDashboard() {
                                 className="border border-[#53618a] rounded-lg p-4 bg-[#e5e7eb] shadow-sm hover:cursor-pointer hover:scale-95 transform duration-200"
                             >
                                 <h3 className="text-lg font-bold text-black">{project.name}</h3>
-                                <p className="text-sm">Status: <span className={`${project.status === 'Completed' ? 'text-green-500' : 'text-red-500'}`}>{project.status}</span></p>
+                                <p className="text-sm">Status: <span className={`${project.status === 'Completed' ? 'text-green-500' : project.status === 'Pending'?'text-red-500':'text-blue-500'}`}>{project.status}</span></p>
                                 <p className="text-sm text-gray-700 mt-1">{project.description}</p>
                             </div>
                         ))
