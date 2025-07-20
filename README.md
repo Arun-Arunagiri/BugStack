@@ -38,49 +38,28 @@ BugStack is a modern web-based bug tracking system designed for **developers** a
 
 ---
 
-## 📁 Project Structure
 
-bugstack/
-├── app/
-│ ├── login/
-│ ├── tester/
-│ ├── developer/
-│ ├── api/
-│ │ ├── users/
-│ │ ├── projects/
-│ │ └── bugs/
-├── components/
-│ └── LoadingSkeleton.tsx
-├── models/
-│ ├── User.ts
-│ ├── Project.ts
-│ └── Bug.ts
-├── lib/
-│ └── mongodb.ts
-
-
----
 
 ## 📦 Setup Instructions
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/your-username/bugstack.git
+   git clone https://github.com/Arun-Arunagiri/bugstack.git
    cd bugstack
-Install dependencies
-
+2. Install dependencies
 
 npm install
-Configure Environment
+
+3. Configure Environment
 Create a .env.local file with your MongoDB URI:
 
-
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/bugstack
-Run the development server
 
+4. Run the development server
 
 npm run dev
-Visit the app
+5. Visit the app
+
 Open http://localhost:3000 in your browser.
 
 🧪 Sample Test Users
