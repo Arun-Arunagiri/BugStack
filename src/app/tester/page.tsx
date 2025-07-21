@@ -16,12 +16,19 @@ const inter = Inter({
     display: 'swap'
 })
 
+type Project = {
+    _id: string;
+    name: string;
+    description: string;
+    status: string;
+};
+
 function TesterDashboard() {
     const [user, setUser] = useState({ name: "", email: "" });
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showDropdown, setShowDropdown] = useState(false);
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -51,11 +58,11 @@ function TesterDashboard() {
         };
 
         fetchProjects();
-    }, []);
+    }, [router]);
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if (dropdownRef.current && !(dropdownRef.current as any).contains(e.target)) {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
                 setShowDropdown(false);
             }
         };
@@ -110,7 +117,7 @@ function TesterDashboard() {
                     onClick={() => router.push("/tester/createbug")}
                     className="fixed bottom-6 right-6 bg-[#84ec76] text-white font-bold px-2 py-2 rounded-full shadow hover:cursor-pointer hover:bg-[#76da69] transition-colors duration-200"
                 >
-                    <Plus className="size-8"/>
+                    <Plus className="size-8" />
                 </button>
             </div>
 
@@ -118,14 +125,14 @@ function TesterDashboard() {
             <div>
                 <h2 className="text-2xl font-semibold mb-4 text-black">Projects</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {projects.map((project: any) => (
+                    {projects.map((project: Project) => (
                         <div
                             key={project._id}
                             onClick={() => router.push(`/tester/${encodeURIComponent(project.name)}`)}
                             className="border border-[#53618a] rounded-lg p-4 bg-[#e5e7eb] shadow-sm hover:cursor-pointer hover:bg-[#dfe1e5] hover:scale-95 transition duration-200"
                         >
                             <h3 className="text-lg font-bold text-black">{project.name}</h3>
-                            <p className="text-sm">Status: <span className={`${project.status === 'Completed' ? 'text-green-500' : project.status === 'Pending'?'text-red-500':'text-blue-500'}`}>{project.status}</span></p>
+                            <p className="text-sm">Status: <span className={`${project.status === 'Completed' ? 'text-green-500' : project.status === 'Pending' ? 'text-red-500' : 'text-blue-500'}`}>{project.status}</span></p>
                         </div>
                     ))}
                 </div>

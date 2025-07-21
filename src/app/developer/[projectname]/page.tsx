@@ -7,13 +7,30 @@ import { Seymour_One, Inter } from "next/font/google";
 
 const seymourOne = Seymour_One({ weight: "400", subsets: ["latin"], display: "swap" });
 const inter = Inter({ weight: "400", subsets: ["latin"], display: "swap" });
+type Project = {
+    name: string;
+    description: string;
+    status: string;
+};
+
+interface Bug {
+    _id: string;
+    name: string;
+    description: string;
+    status: 'pending' | 'in progress' | 'completed'; // adjust as needed
+    createdAt: string;
+    updatedAt: string;
+    // Add any other fields you expect
+}
+
+
 
 function ProjectDetails() {
     const { projectname } = useParams();
     const [user, setUser] = useState({ name: "", email: "", role: "" });
-    const [project, setProject] = useState(null);
-    const [bugs, setBugs] = useState([]);
-    const [filteredBugs, setFilteredBugs] = useState([]);
+    const [project, setProject] = useState<Project | null>(null);
+    const [bugs, setBugs] = useState<Bug[]>([]);
+    const [filteredBugs, setFilteredBugs] = useState<Bug[]>([]);
     const [filter, setFilter] = useState("all");
     const [loading, setLoading] = useState(true);
     const router = useRouter();
@@ -44,7 +61,7 @@ function ProjectDetails() {
         if (filter === "all") {
             setFilteredBugs(bugs);
         } else {
-            setFilteredBugs(bugs.filter((bug) => bug.status.toLowerCase() === filter));
+            setFilteredBugs(bugs.filter((bug: Bug) => bug.status.toLowerCase() === filter));
         }
     }, [bugs, filter]);
 
@@ -110,7 +127,14 @@ function ProjectDetails() {
                                     });
                                     const data = await res.json();
                                     if (data.success) {
-                                        setProject((prev) => ({ ...prev, status: newStatus }));
+                                        setProject((prev) => {
+                                            if (!prev) return prev; // or return null
+
+                                            return {
+                                                ...prev,
+                                                status: newStatus
+                                            };
+                                        });
                                     } else {
                                         alert("Failed to update project status");
                                     }

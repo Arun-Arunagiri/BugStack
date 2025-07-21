@@ -9,12 +9,30 @@ import { Seymour_One, Inter } from "next/font/google";
 const seymourOne = Seymour_One({ weight: "400", subsets: ["latin"], display: "swap" });
 const inter = Inter({ weight: "400", subsets: ["latin"], display: "swap" });
 
+type Project = {
+    _id: string;
+    name: string;
+    description: string;
+    status: "Pending" | "In Progress" | "Completed";
+};
+
+
+interface Bug {
+    _id: string;
+    name: string;
+    description: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+
 function ProjectDetails() {
     const { projectname } = useParams();
     const [user, setUser] = useState({ name: "", email: "" });
-    const [project, setProject] = useState(null);
-    const [bugs, setBugs] = useState([]);
-    const [filteredBugs, setFilteredBugs] = useState([]);
+    const [project, setProject] = useState<Project | null>(null);
+    const [bugs, setBugs] = useState<Bug[]>([]);
+    const [filteredBugs, setFilteredBugs] = useState<Bug[]>([]);
     const [filter, setFilter] = useState("all");
     const [loading, setLoading] = useState(true);
     const router = useRouter();
@@ -45,7 +63,7 @@ function ProjectDetails() {
         if (filter === "all") {
             setFilteredBugs(bugs);
         } else {
-            setFilteredBugs(bugs.filter((bug) => bug.status.toLowerCase() === filter));
+            setFilteredBugs(bugs.filter((bug: Bug) => bug.status.toLowerCase() === filter));
         }
     }, [bugs, filter]);
 
@@ -54,7 +72,7 @@ function ProjectDetails() {
             const res = await fetch(`/api/bugs/${id}`, { method: "DELETE" });
             const data = await res.json();
             if (data.success) {
-                setBugs((prev) => prev.filter((bug) => bug._id !== id));
+                setBugs((prev) => prev.filter((bug: Bug) => bug._id !== id));
             }
         } catch (err) {
             console.error("Error deleting bug:", err);
@@ -71,7 +89,7 @@ function ProjectDetails() {
             const data = await res.json();
             if (data.success) {
                 setBugs((prev) =>
-                    prev.map((bug) => (bug._id === bugId ? { ...bug, status: newStatus } : bug))
+                    prev.map((bug: Bug) => (bug._id === bugId ? { ...bug, status: newStatus } : bug))
                 );
             }
         } catch (err) {
@@ -86,8 +104,8 @@ function ProjectDetails() {
         <div className="min-h-screen bg-[#f8f9fa] text-[#53618a] lg:px-6 px-2 py-2">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center lg:gap-8">
-                    <ChevronLeft onClick={()=>router.back()}
-                    className="size-8 text-black rounded-2xl hover:cursor-pointer active:scale-90"/>
+                    <ChevronLeft onClick={() => router.back()}
+                        className="size-8 text-black rounded-2xl hover:cursor-pointer active:scale-90" />
                     <p className={`text-blue-500 lg:text-4xl ${seymourOne.className}`}>BugStack</p>
                 </div>
                 <div className="flex items-center gap-3">

@@ -16,12 +16,20 @@ const inter = Inter({
     display: 'swap'
 });
 
+type Project = {
+    _id: string;
+    name: string;
+    description: string;
+    status: "Pending" | "In Progress" | "Completed"; // adjust if needed
+};
+
+
 function DeveloperDashboard() {
     const [user, setUser] = useState({ name: "", email: "" });
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
     const [showDropdown, setShowDropdown] = useState(false);
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -51,12 +59,12 @@ function DeveloperDashboard() {
         };
 
         fetchProjects();
-    }, []);
+    }, [router]);
 
     // close dropdown if clicked outside
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if (dropdownRef.current && !(dropdownRef.current as any).contains(e.target)) {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
                 setShowDropdown(false);
             }
         };
@@ -120,14 +128,14 @@ function DeveloperDashboard() {
                     {projects.length === 0 ? (
                         <p className="text-gray-600">No projects assigned.</p>
                     ) : (
-                        projects.map((project: any) => (
+                        projects.map((project) => (
                             <div
                                 key={project._id}
                                 onClick={() => router.push(`/developer/${encodeURIComponent(project.name)}`)}
                                 className="border border-[#53618a] rounded-lg p-4 bg-[#e5e7eb] shadow-sm hover:cursor-pointer hover:scale-95 transform duration-200"
                             >
                                 <h3 className="text-lg font-bold text-black">{project.name}</h3>
-                                <p className="text-sm">Status: <span className={`${project.status === 'Completed' ? 'text-green-500' : project.status === 'Pending'?'text-red-500':'text-blue-500'}`}>{project.status}</span></p>
+                                <p className="text-sm">Status: <span className={`${project.status === 'Completed' ? 'text-green-500' : project.status === 'Pending' ? 'text-red-500' : 'text-blue-500'}`}>{project.status}</span></p>
                                 <p className="text-sm text-gray-700 mt-1">{project.description}</p>
                             </div>
                         ))

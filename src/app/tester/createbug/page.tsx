@@ -2,6 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+type Project = {
+    _id: string;
+    name: string;
+    description: string;
+    status: string;
+};
+
 function CreateBug() {
     const [form, setForm] = useState({
         name: '',
@@ -110,7 +117,7 @@ function CreateBug() {
                     onChange={(e) => setForm({ ...form, projectId: e.target.value })}
                 >
                     <option value="">Select Project</option>
-                    {projects.map((project: any) => (
+                    {projects.map((project: Project) => (
                         <option key={project._id} value={project._id}>
                             {project.name}
                         </option>

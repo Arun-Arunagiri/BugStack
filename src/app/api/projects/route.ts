@@ -1,6 +1,7 @@
 import { connectToDatabase } from '@/lib/mongodb';
 import { Project } from '@/models/Project';
 import { User } from '@/models/User';
+import { Types } from 'mongoose';
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
@@ -10,7 +11,7 @@ export async function GET(req: Request) {
     await connectToDatabase();
 
     try {
-        let query: any = {};
+        const query: { developer?: Types.ObjectId; tester?: Types.ObjectId } = {};
 
         if (testerEmail) {
             const tester = await User.findOne({ email: testerEmail, role: 'tester' });

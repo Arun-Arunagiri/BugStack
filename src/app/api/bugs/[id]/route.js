@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/lib/mongodb";
 import { Bug } from "@/models/Bug";
 import { NextRequest } from "next/server";
 
-export async function DELETE(_: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_) {
     await connectToDatabase();
     try {
         await Bug.findByIdAndDelete(params.id);
@@ -14,7 +14,7 @@ export async function DELETE(_: NextRequest, { params }: { params: { id: string 
 }
 
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req, { params }) {
     await connectToDatabase();
     const { status } = await req.json();
 
